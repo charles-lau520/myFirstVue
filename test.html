@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>vue学习</title>
+        <script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+    </head>
+    <body>
+        <div id="app4">
+            {{price}}<br>
+            <input v-model="price"><br><!-- 下行注释的语法糖 -->
+            <!-- <input :value="price" @input="price = $event.target.value"> -->
+            {{5+5}}<br>
+            {{ok?'yes':'no'}}<br>
+            {{message.split('').reverse().join('')}}<br>
+            {{message.split('')}}<br>
+            <div v-bind:id="'list-'+id" v-if="seen">菜鸟教材</div>
+            <p>{{message}}</p>
+            <button v-on:click="reverseMessage">反转字符串</button><br>
+            {{message2 | capitalize}}
+
+        </div>
+        <script>
+            new Vue({
+                el: '#app4',
+                data: {
+                    price: '20',
+                    ok:false,
+                    message:'runoob',
+                    id:1,
+                    seen : true,
+                    message2:'abcdefg'
+                },
+                methods:{
+                    reverseMessage:function(){
+                        this.message = this.message.split('').reverse().join('')
+                    }
+                },
+                filters:{
+                    capitalize:function(value){
+                        if(!value) return ''
+                        value = value.toString()
+                        //JavaScript charAt() 方法
+                        //
+                        return value.charAt(0).toUpperCase()+value.slice(1)
+                    }
+                }
+            });
+
+        </script>
+    </body>
+</html>
