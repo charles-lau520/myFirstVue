@@ -6,7 +6,7 @@
         <script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
     </head>
     <body>
-        <div id="app4">
+        <div id="app">
             {{price}}<br>
             <input v-model="price"><br><!-- 下行注释的语法糖 -->
             <!-- <input :value="price" @input="price = $event.target.value"> -->
@@ -17,12 +17,29 @@
             <div v-bind:id="'list-'+id" v-if="seen">菜鸟教材</div>
             <p>{{message}}</p>
             <button v-on:click="reverseMessage">反转字符串</button><br>
-            {{message2 | capitalize}}
+            {{message2 | capitalize}}<br>
+        </div>
+        <div id="app2">
+            <p v-if="seen">这是可以看到的</p>
+            <template v-if="ok">
+                <h1>这是测试页面</h1>
+                <p>12345</p>
+                <p>67890</p>
+            </template>
+            <h3>随机生成数字并判断是否大于5</h3>
+            <div v-if="Math.random()>0.5">随机数字大于5</div>
+            <div v-else>随机数字小于5</div>
+            <p>类型判断</p>
+            <div v-if="type==='A'">A</div>
+            <div v-else-if="type==='B'">B</div>
+            <div v-else-if="type==='C'">C</div>
+            <div v-else>NOT A/B/C</div>
+
 
         </div>
         <script>
             new Vue({
-                el: '#app4',
+                el: '#app',
                 data: {
                     price: '20',
                     ok:false,
@@ -30,6 +47,7 @@
                     id:1,
                     seen : true,
                     message2:'abcdefg'
+                    
                 },
                 methods:{
                     reverseMessage:function(){
@@ -44,6 +62,15 @@
                         //
                         return value.charAt(0).toUpperCase()+value.slice(1)
                     }
+                }
+            });
+            new Vue({
+                el:'#app2',
+                data:{
+                    seen:true,
+                    ok:true,
+                    type:'C'
+
                 }
             });
 
