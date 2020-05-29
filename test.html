@@ -34,8 +34,26 @@
             <div v-else-if="type==='B'">B</div>
             <div v-else-if="type==='C'">C</div>
             <div v-else>NOT A/B/C</div>
-
-
+            <ul>
+                <li v-for="site in sites">
+                    {{site.name}}
+                </li>
+                <li v-for="value in object ">
+                    {{value}}
+                </li>
+                <li v-for="(value2,key) in object ">
+                    {{key}}:{{value2}}
+                </li>
+                <li v-for="(value3,key2,index) in object ">
+                    {{value3}}:{{key2}}:{{index}}
+                </li>
+            </ul>
+            <br>
+            <ul>
+                <li v-for="n in 10">
+                    {{n}}
+                </li>
+            </ul>
         </div>
         <script>
             new Vue({
@@ -69,10 +87,43 @@
                 data:{
                     seen:true,
                     ok:true,
-                    type:'C'
+                    type:'C',
+                    sites:[{name:'runoob'},{name:'google'},{name:'taobao'}],
+                    object:{
+                        name:'title',
+                        url:'http:url',
+                        slogan:'abcdefghejklmn'
+                    },
+                    name:'google',
+                    url:'http://www.google.com'
 
-                }
+                },
+                
             });
+            var vm = new Vue({
+                el:'#app3',
+                data:{
+                    name : 'google',
+                    url : 'http://www.google.com'
+                },
+                computed:{
+                    site:{
+                        get:function(){
+                            return this.name + ' ' + this.url
+                        },
+                        set:function(newvalue){
+                            var names = newvalue.split(' ')
+                            this.name = names[0]
+                            this.url = names[names.length-1]
+
+                        }
+                    }
+                }
+            })
+            vm.site = '阿斯蒂芬 http';
+            document.write('name:'+vm.name);
+            document.write('<br>');
+            document.write('url:'+vm.url);
 
         </script>
     </body>
