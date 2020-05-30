@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>vue学习</title>
+        <script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+        <style type="text/css">
+        	.active{
+        		width: 100px;
+        		height: 100px;
+        		/*border-style:dotted;
+        		border-color:#ff0000 #0000ff;*/
+        		background-color: green;
+        	}
+        	.text-danger{
+        		background-color: red;
+
+        	}
+        </style>
+    </head>
+    <body>
+    	<div id="app">
+    		<h1 style="font-size: 25px">计数器：{{counter}}</h1>
+    		<!--@click="counter++"-->
+    		<button v-on:click=setAdd  style="font-size: 15px">增加</button>
+    		<button v-on:click=setDel  style="font-size: 15px">减少</button>
+    		<button v-on:click=setRemove  style="font-size: 15px">清零</button>
+    		<div v-bind:class="{active:isActive,'text-danger':hasError}">
+    			<p>绑定class</p>
+    		</div>
+    		<div v-bind:class="classObject">
+    			<p>绑定class</p>
+    		</div>
+    		<div v-bind:style="{color: activeColor, fontSize: fontSize + 'px'}">
+    			<p>绑定style</p>
+    		</div>
+    		<div v-bind:style="styleObject">
+    			<p>绑定style</p>
+    		</div>
+    		<div v-bind:style="[baseStyles,overridingStyles]">
+    			<p>绑定style</p>
+    		</div>
+    	</div>
+    	<br>
+
+    	<div id="computed_props">
+    			千米：<input type="text" v-model="kilometers">
+    			米：<input type="text" v-model="meters">
+    	</div>
+    	<p id="info"></p>
+
+
+    	<script type="text/javascript">
+    		var vm = new Vue({
+    			el:'#app',
+    			data:{
+    				counter:1,
+    				isActive:true,
+    				hasError:false,
+    				classObject:{
+    					active:true,
+    					'text-danger':true
+
+    				},
+    				activeColor:'green',
+    				fontSize:30,
+    				styleObject:{
+    					color:'red',
+    					fontSize:30
+    				},
+    				baseStyles:{
+    					color:'blue',
+    					fontSize:30
+    				},
+    				overridingStyles:{
+    					'font-weight':'bold'
+    				}
+    			},
+    			methods:{
+    				setAdd:function(){
+    					return this.counter++
+
+    				},
+    				setDel:function(){
+    					if (this.counter > 0){
+    						return this.counter--
+    					}
+    					else{
+    						return this.counter=0
+
+    					}
+    					
+    				},
+    				setRemove:function(){
+    					return this.counter=0
+    				}
+
+    			}
+
+    		});
+    		vm.$watch('counter',function(nval,oval){
+    			//alert('计数器值得变化:'+oval+'变为'+nval+'!');
+
+    		});
+    		var vm2 = new Vue({
+    			el:'#computed_props',
+    			data:{
+    				kilometers:0,
+    				meters:0
+    			},
+    			methods:{
+
+    			},
+    			computed:{
+
+    			},
+    			watch:{
+    				kilometers:function(val){
+    					this.kilometers = val;
+    					this.meters = this.kilometers * 1000;
+    				},
+    				meters:function(val){
+    					this.kilometers = val/1000;
+    					this.meters = val;
+    				}
+
+    			}
+
+    		});
+    		//$watch是一个实例方法
+    		vm2.$watch('kilometers',function(newValue,oldVale){
+    		//这个回调将在vm.kilometers改变后调用
+    		console.log("aaa");
+    			document.getElementById("info").innerHTML = "修改前值为:"+oldVale+",修改后值为:"+newValue;
+
+    		});
+
+
+
+    	</script>
+    </body>
+</html>
