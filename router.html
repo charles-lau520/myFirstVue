@@ -1,0 +1,49 @@
+<!--https://www.cnblogs.com/weifeng123/p/9876429.html-->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>vue-router</title>
+		<link rel="stylesheet" href="css/main.css">
+		<script src="js/vue.js"></script>
+		<script src="js/vue-router.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<router-view>
+				<div id="app">
+					<router-view name="top"></router-view>
+					<router-view name="left"></router-view>
+					<router-view name="main"></router-view>
+				</div>
+				<script>
+					var topCom = Vue.extend({template: '<div>顶部</div>'})
+					var leftCom = Vue.extend({template: '<div>侧边栏</div>'})
+					var mainCom = Vue.extend({template: '<div>主页</div>'})
+					var router = new VueRouter({
+						routes:[{
+							path: '/',
+							name: 'home',
+							components:{
+								top: topCom,
+								left: leftCom,
+								main: mainCom
+
+							}				
+
+						}]
+
+					})
+					var app = new Vue({
+						el: '#app',
+						router
+					})
+
+				</script>
+			</router-view>
+			<foot-nav></foot-nav>
+		</div>
+		<template></template> //组件区域
+		<script src="js/main.js"></script>
+	</body>
+</html>
